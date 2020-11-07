@@ -3,14 +3,14 @@ import websockets
 import ruleset as rules
 import config
 import importlib
-import wilke_ruleset as wrs
 
 async def rule_engine(websocket, path):
 
     #config.init_sensors()
     sensors = []
     actuators = []
-    server = wrs.Server()
+
+    Server = rules.Server()
     while True:
         for i in range(20):
             try:
@@ -19,11 +19,20 @@ async def rule_engine(websocket, path):
 
                 if data[0]=='0':
                     # now i want to update the sensor:
-                    server.ServerUpdate()
-                    print("Received: {}".format(result))
+                    Server.devices[data[1]].value = float(data[2])
+                    
                 elif data[0]=='1':
-                    server.ServerAddDevices(data)
+                    Server.ServerAddDevices(data)
 
+                    importlib.reload(config)
+                    sensors.append(data[1])
+                    print(sensors)
+                    
+                elif data[0]=='2':
+                    Server.ServerAddDevices(data)
+                    importlib.reload(config)
+                    actuators.append(data[1])
+                    print(actuators)
 
                 await asyncio.sleep(0.2)
 

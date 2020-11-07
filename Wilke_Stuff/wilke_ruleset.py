@@ -87,9 +87,14 @@ class Server():
         self.devices[device_props[1]] = DeviceDict[device_props[2]]()
 
         for device in self.devices:
-            device.DeviceName = device.DeviceType
+            self.devices[device] = device.DeviceType
             
-    def ServerUpdate(self):
-        for device in self.devices.index:
-            self.configuration.update()
+    def push(self):
+        for device in self.devices:
+            if isinstance(self.devices[device], Actuator):
+                self.devices[device].update()
+            
+    def pull(self):
+        for device in self.devices:
+            self.devices[device].update()
             
