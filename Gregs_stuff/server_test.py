@@ -9,6 +9,8 @@ async def rule_engine(websocket, path):
     #config.init_sensors()
     sensors = []
     actuators = []
+
+    Server = rules.Server()
     while True:
         for i in range(20):
             try:
@@ -17,16 +19,26 @@ async def rule_engine(websocket, path):
 
                 if data[0]=='0':
                     # now i want to update the sensor:
-                    eval(data[1]).value = float(data[2])
+                    Server.devices[data[1]].value = float(data[2])
                 elif data[0]=='1':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
-                    exec("%s = %d" % (data[1],config.eval(data[2])(name = data[1])))
+                    #class_ = getattr(rules , data[2])
+                    #exec("%s = %d" % (data[1],class_()))
+                    #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
+
+                    Server.ServerAddDevices(data)
+
                     importlib.reload(config)
                     sensors.append(data[1])
                     print(sensors)
                 elif data[0]=='2':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
-                    exec("%s = %d" % (data[1],config.eval(data[2])(name = data[1])))
+                    #class_ = getattr(rules , data[2])
+                    #exec("%s = %d" % (data[1],class_()))
+                    #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
+
+                    Server.ServerAddDevices(data)
+
                     importlib.reload(config)
                     actuators.append(data[1])
                     print(actuators)
