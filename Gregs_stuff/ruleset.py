@@ -65,7 +65,9 @@ class Server():
 
     def ServerAddDevices(self, device_props):
         #device_props = string.split(",")#ws.recv().split(" ")
+        print(self.devices)
         self.devices[device_props[1]] = DeviceDict[device_props[2]]()
+        print(self.devices)
         # if(device_props[2] == "False")
 
 
