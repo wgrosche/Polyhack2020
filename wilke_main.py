@@ -28,27 +28,48 @@ import ssl
 # # and output to the environment. 
 # dev_type = ...
 
+"""
+Server:
+    Pulls status from devices at regular intervals
+    Calculates response based on the ruleset
+    Pushes update to corresponding device
+    
+Device:
+    Attribute updated based on server push
+"""
 
-class device():
-    async def _init_(dev_type):
-        self.ruleset = dev_type.ruleset
-        self.
-        pass
-    async def server_pull(input_data):
-        self.output_data_pull = self.ruleset(input_data)
-        return self.output_data_pull
-        
-    async def server_push(input_data):
-        self.output_data_push = self.ruleset(input_data)
-        return self.output_data_push
+
+
+light = ruleset.light(data)
+
+class dev_type():
+
+    
+
+    
+ruleset(input_data, attributes) = 
         
 class dev_type():
     def _init_():
         
 
-class server():
-
-
+class Server():
+    def _init_(config, ruleset):
+        start_server = websockets.serve(time, "127.0.0.1", 5678)
+        asyncio.get_event_loop().run_until_complete(start_server)
+        asyncio.get_event_loop().run_forever()
+        self.attributes = attributes
+        self.ruleset = ruleset(attributes)
+        pass
+    async def server_pull(input_data, device):
+        req_type = "pull"
+        self.output_data_pull = self.ruleset(input_data, attributes, req_type = "pull")
+        return self.output_data_pull
+        
+    async def server_push(input_data):
+        req_type = "push"
+        self.output_data_push = self.ruleset(input_data, attributes, req_type = "push")
+        return self.output_data_push
 # def device_request(dev_type, input_data):
 #     global ruleset
     
