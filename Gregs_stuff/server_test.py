@@ -50,7 +50,9 @@ async def rule_engine(websocket, path):
                 break
 
         #logic phase
-        config.updates()
+        importlib.reload(config)
+        config.updates(Server)
+        await asyncio.sleep(2)
 
 
 start_server = websockets.serve(rule_engine, "localhost", 8765)
