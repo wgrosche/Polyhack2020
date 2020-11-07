@@ -17,7 +17,7 @@ async def rule_engine(websocket, path):
                     # now i want to update the sensor:
                     eval(data[1]).value = float(data[2])
                 elif data[0]==1:
-                    eval(data[2])(name = data[1])
+                    eval(data[1]) = config.eval(data[2])(name = data[1])
                     importlib.reload(config)
 
                 await asyncio.sleep(0.2)
