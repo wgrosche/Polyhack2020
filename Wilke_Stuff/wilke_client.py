@@ -4,8 +4,10 @@ Created on Sat Nov  7 18:03:07 2020
 
 @author: wilke
 """
-
-from websockets import connect
+import asyncio
+import pathlib
+import ssl
+import websockets
 
 ws = connect("ws://localhost:9000")
 cid = ws.recv()
@@ -19,10 +21,7 @@ while True:
         print("Connection closed")
         exit(0)
         
-import asyncio
-import pathlib
-import ssl
-import websockets
+
 
 async def chat():
     async with websockets.connect(
