@@ -18,5 +18,5 @@ def updates():
     #Wenn die Sensoren einfach durchnummeriert wären, wäre das auch nicht so schwierig.
     #Sensor1.update()
     #Sensor2.update()
-
-    Light1.update((Sensor1.value or Sensor2.value))
+    haha = 2
+    #Light1.update((Sensor1.value or Sensor2.value))
