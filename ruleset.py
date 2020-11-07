@@ -19,7 +19,8 @@ Created on Sat Nov  7 13:39:51 2020
 class Sensor(): 
     def __init__(self):
         pass
-    # def update(self, server):
+    def update(self):
+        self.value = websockets.recv
     #     pull
         
         
@@ -46,6 +47,11 @@ class Actuator():
         
 
 class Light(Actuator):
+    def __init__(self):
+        super().__init__()
+        self.value = 0
+        
+class DoorLock(Actuator):
     def __init__(self):
         super().__init__()
         self.value = False
