@@ -15,8 +15,7 @@ Created on Sat Nov  7 13:39:51 2020
 #         else:
 #             self.lightswitch = False
 
-class Devices():
-    def
+
 class Sensor():
     def __init__(self , name = 'Sensor'):
         self.name=name
@@ -61,7 +60,7 @@ DeviceDict = {"MotionSensor": MotionSensor, "ProximitySensor": ProximitySensor,
 class Server():
     def __init__(self):
         super().__init__()
-        self.devices = {}
+        self.devices = {"Blau": "Baelle"}
 
 
     def ServerAddDevices(self, device_props):
