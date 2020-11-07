@@ -4,13 +4,15 @@ import ruleset as rules
 import config
 import importlib
 
+global server
+server = rules.Server()
+
 async def rule_engine(websocket, path):
 
     #config.init_sensors()
     sensors = []
     actuators = []
 
-    Server = rules.Server()
     while True:
         for i in range(20):
             try:
@@ -19,14 +21,14 @@ async def rule_engine(websocket, path):
 
                 if data[0]=='0':
                     # now i want to update the sensor:
-                    Server.devices[data[1]].value = float(data[2])
+                    server.devices[data[1]].value = float(data[2])
                 elif data[0]=='1':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
                     #class_ = getattr(rules , data[2])
                     #exec("%s = %d" % (data[1],class_()))
                     #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
 
-                    Server.ServerAddDevices(data)
+                    server.ServerAddDevices(data)
 
                     importlib.reload(config)
                     sensors.append(data[1])
@@ -37,7 +39,7 @@ async def rule_engine(websocket, path):
                     #exec("%s = %d" % (data[1],class_()))
                     #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
 
-                    Server.ServerAddDevices(data)
+                    server.ServerAddDevices(data)
 
                     importlib.reload(config)
                     actuators.append(data[1])
@@ -51,7 +53,7 @@ async def rule_engine(websocket, path):
 
         #logic phase
         importlib.reload(config)
-        config.updates(Server)
+        config.updates(server)
         await asyncio.sleep(2)
 
 
