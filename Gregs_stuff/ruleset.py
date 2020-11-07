@@ -17,7 +17,8 @@ Created on Sat Nov  7 13:39:51 2020
 
 
 class Sensor():
-    def __init__(self):
+    def __init__(self , name = 'Sensor'):
+        self.name=name
         pass
 
 
