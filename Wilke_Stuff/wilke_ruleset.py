@@ -14,7 +14,8 @@ Created on Sat Nov  7 13:39:51 2020
 #             self.lightswitch = True
 #         else:
 #             self.lightswitch = False
-        
+import config 
+
 class Device():
     def __init__(self):
         pass
@@ -78,24 +79,17 @@ class Server():
     def __init__(self):
         super().__init__()
         self.devices = {}
+        self.configuration = config.Ruleset()
 
             
-    def ServerAddDevices(self):
-        device_props = "Sensor1 MotionSensor".split(" ")#ws.recv().split(" ")
-        self.devices[device_props[0]] = DeviceDict[device_props[1]]()
-        # if(device_props[2] == "False") 
-        
-        
-        # device_props2 = "Sensor2 ProximitySensor".split(" ")
-        # self.devices.append(ws.recv()) #add devices based on d 'Sensor1', 'MotionSensor', 'False'  Sensor1 = MotionSensor()
-        # self.devices
+    def ServerAddDevices(self, device_props):
+        # device_props = "Sensor1 MotionSensor".split(" ")#ws.recv().split(" ")
+        self.devices[device_props[1]] = DeviceDict[device_props[2]]()
+
         for device in self.devices:
             device.DeviceName = device.DeviceType
             
     def ServerUpdate(self):
         for device in self.devices.index:
-            device.update()
+            self.configuration.update()
             
-# df.sensor_dict["Sensor1"].value
-        
-# sensor_dict = {"Sensor1": MotionSensor()}, "Sensor2": ProximitySensor()}

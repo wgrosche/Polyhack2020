@@ -3,42 +3,33 @@ import websockets
 import ruleset as rules
 import config
 import importlib
+import wilke_ruleset as wrs
 
 async def rule_engine(websocket, path):
 
     #config.init_sensors()
     sensors = []
     actuators = []
-
-    Server = rules.Server()
+    server = wrs.Server()
     while True:
         for i in range(20):
             try:
                 data = await websocket.recv()
-                data = data.split(',') # First entry: Sensor name, Second Entry: Value
+                data = data.split(' ') # First entry: Sensor name, Second Entry: Value
 
                 if data[0]=='0':
                     # now i want to update the sensor:
-                    Server.devices[data[1]].value = float(data[2])
+                    eval(data[1]).value = float(data[2])
                 elif data[0]=='1':
+                    server.ServerAddDevices(data)
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
-                    #class_ = getattr(rules , data[2])
-                    #exec("%s = %d" % (data[1],class_()))
-                    #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
-
-                    Server.ServerAddDevices(data)
-
-                    importlib.reload(config)
-                    sensors.append(data[1])
+                    # exec("%s = %d" % (data[1],config.eval(data[2])(name = data[1])))
+                    # importlib.reload(config)
+                    # sensors.append(data[1])
                     print(sensors)
                 elif data[0]=='2':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
-                    #class_ = getattr(rules , data[2])
-                    #exec("%s = %d" % (data[1],class_()))
-                    #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
-
-                    Server.ServerAddDevices(data)
-
+                    exec("%s = %d" % (data[1],config.eval(data[2])(name = data[1])))
                     importlib.reload(config)
                     actuators.append(data[1])
                     print(actuators)

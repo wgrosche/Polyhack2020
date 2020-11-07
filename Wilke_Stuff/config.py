@@ -5,14 +5,16 @@ Created on Sat Nov  7 15:29:06 2020
 @author: wilke
 """
 
-import ruleset as rules
+import wilke_ruleset as rules
 
+class Ruleset():
+    def __init__(self):
+        
+        self.Light1 = rules.Light()
+    
+        self.Sensor1 = rules.MotionSensor()
+        self.Sensor2 = rules.MotionSensor()
 
-Light1 = rules.Light()
-
-Sensor1 = rules.MotionSensor()
-Sensor2 = rules.MotionSensor()
-
-Light1.update((Sensor1.value or Sensor2.value))
-
-
+    def update(self):
+        self.Light1.update((self.Sensor1.value or self.Sensor2.value))
+        
