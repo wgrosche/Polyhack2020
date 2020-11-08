@@ -6,6 +6,10 @@ import random as rand
 import time
 import datetime
 import matplotlib.pyplot as plt
+import city_classes
+
+global server
+server = city_classes.Server()
 
 num_agents = 5 # number of agents
 dim = 30 # grid dimension
@@ -92,6 +96,12 @@ initialize_grid()
 
 async def city_sim(websocket, path):
     while True:
+
+        data = await websocket.recv()
+        data = data.split(',')
+        data[0] = gen_location()
+        server.ServerAddDevices(data)
+
         for i in range(num_agents):
             positions[i] = walk(positions[i])
         update_grid()
