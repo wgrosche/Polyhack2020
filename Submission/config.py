@@ -1,14 +1,10 @@
+# -*- coding: utf-8 -*-
 """
-Config file: To be altered by the end user to accommodate their use case. Allows the implementation of:
-    simple propositional logic
-    fuzzy-logic
-    many to one rules
-    one to many rules
-    
-    Examples for each of the above are given.
-    The update function is called by the host server and alters the status of the server before this is pushed to the devices.
-    
+Created on Sat Nov  7 15:29:06 2020
+
+@author: wilke
 """
+import ruleset as rules
 
 def updates(server):
     # example update rules for the server based on examples given in the ASUS project brief
