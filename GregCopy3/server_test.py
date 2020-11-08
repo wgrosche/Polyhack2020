@@ -19,11 +19,10 @@ async def rule_engine(websocket, path):
 
     while True:
         data = ['3']
-        for i in range(20):
+        for i in range(10):
             try:
                 try:
                     data = await asyncio.wait_for(asyncio.gather(websocket.recv()),timeout = 0.2)
-                    print(data)
                     data = data[0].split(',') # First entry: Sensor name, Second Entry: Value
                 except asyncio.TimeoutError:
                     pass
@@ -78,7 +77,6 @@ async def rule_engine(websocket, path):
         status_string = json.dumps(server.status) #data serialized
         print(status_string)
         await websocket.send(status_string)
-        print('1')
         await asyncio.sleep(2)
 
 

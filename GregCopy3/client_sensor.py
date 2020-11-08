@@ -7,10 +7,10 @@ import json
 async def sensor():
     uri = "ws://localhost:8765"
     async with websockets.connect(uri) as websocket:
-        #name = input('Input Sensor name: ')
-        name = 'CatProximity'
-        #type = input('Sensor type: ')
-        type = 'ProximitySensor'
+        name = input('Input Sensor name: ')
+        #name = 'CatProximity'
+        type = input('Sensor type: ')
+        #type = 'ProximitySensor'
         #value = input('Measurement: ')
         value = '0.8'
         value = float(value)
@@ -28,7 +28,7 @@ async def sensor():
             # this could for example be done by connecting to another server
             # that simulates movement in the city
             await websocket.send(data)
-            await asyncio.sleep(0.3)
+            await asyncio.sleep(0.7)
             #message = await websocket.recv()
             #print(json.loads(message))
 

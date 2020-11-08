@@ -12,9 +12,9 @@ async def actuator():
         await websocket.send(mes)
 
         while True:
-            print("Test")
+            #print("Test")
             message = await websocket.recv()
-            print(json.loads(message))
+            #print(json.loads(message))
 
             state = json.loads(message)
             try:
@@ -22,7 +22,7 @@ async def actuator():
             except KeyError:
                 pass
             print(state)
-            await asyncio.sleep(0.3)
+            #await asyncio.sleep(0.3)
 
 
 
