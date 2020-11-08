@@ -12,18 +12,11 @@ async def actuator():
         await websocket.send(mes)
 
         while True:
-            print("Test")
-            message = await websocket.recv()
-            print(json.loads(message))
-
-            state = json.loads(message)
-            try:
-                state = state[name]
-            except KeyError:
-                pass
+            while websocket:
+                print("Test")
+                async for message in websocket:
+                    state = json.loads(message)
+            state = state[name]
             print(state)
-            await asyncio.sleep(0.3)
-
-
 
 asyncio.get_event_loop().run_until_complete(actuator())
