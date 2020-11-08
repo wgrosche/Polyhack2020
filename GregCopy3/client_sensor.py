@@ -19,7 +19,7 @@ async def sensor():
             if type == "ProximitySensor":
                 value = random.random()
             else:
-                value = bool(random.getrandbits(1))
+                value = random.getrandbits(1)
             #maybe i could do a measurement here
             # this could for example be done by connecting to another server
             # that simulates movement in the city
