@@ -65,7 +65,9 @@ prox_sensor1 = light1.location
 
 # measure distance of person to sensor
 def prox_sensor(sensor, position):
-    return np.linalg.norm(np.array(sensor.location)-position)
+    result = np.linalg.norm(np.array(server.devices[sensor].location)-position)
+    print(result)
+    return result
 
 
 # random walk step
@@ -98,26 +100,33 @@ def gen_location():
 
 initialize_grid()
 
+
 async def city_sim(websocket, path):
     while True:
-        for i in range(20):
+        for i in range(10):
             try:
-                data = await websocket.recv()
+                data = await asyncio.wait_for(websocket.recv(),timeout = 1)
                 data = data.split(',')
                 data[0] = gen_location()
                 server.ServerAddDevices(data)
 
-            except websockets.ConnectionClosed:
+            except asyncio.TimeoutError:
                 for i in range(num_agents):
                     positions[i] = walk(positions[i])
                 update_grid()
                 #await websocket.send(plot())
                 time.sleep(0.2)
-        for sensor in server.devices:
-            stat = ','.join([str(num) for num in prox_sensor(sensor , positions)])
-            server.status[sensor] = stat
-        await websocket.send(server.status)
+            except websockets.ConnectionClosed:
+                pass
 
+        for sensor in server.devices:
+            #stat = ','.join([str(num) for num in prox_sensor(sensor , positions)])
+            stat = ','.join([str(prox_sensor(sensor , positions[i])) for i in range(num_agents)])
+            server.status[sensor] = stat
+        try:
+            await websocket.send(server.status)
+        except:
+            pass
 
 
 start_server = websockets.serve(city_sim, "127.0.0.1", 8766)
