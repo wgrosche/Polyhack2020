@@ -61,6 +61,7 @@ class Server():
     def __init__(self):
         super().__init__()
         self.devices = {}
+        self.status = {}
 
 
     def ServerAddDevices(self, device_props):

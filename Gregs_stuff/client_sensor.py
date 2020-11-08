@@ -8,7 +8,7 @@ async def sensor():
     async with websockets.connect(uri) as websocket:
         name = input('Input Sensor name: ')
         type = input('Sensor type: ')
-        value = input('Measuremend :D : ')
+        value = input('Measurement: ')
         mes = '1' + ',' + name + ',' + type
         await websocket.send(mes)
         while True:

@@ -2,24 +2,18 @@ import asyncio
 import websockets
 
 
-global status, actuator_name, actuator_type
-status = 0
 
-async def actuator_init():
+async def actuator():
     uri = "ws://localhost:8765"
     async with websockets.connect(uri) as websocket:
-        actuator_name = input('Input Actuator name: ')
-        actuator_type = input('Actuator type: ')
-        mes = '2' + ',' + actuator_name + ',' + actuator_type
+        name = input('Input Actuator name: ')
+        type = input('Actuator type: ')
+        mes = '2' + ',' + name + ',' + type
         await websocket.send(mes)
+
         while True:
-            status_all = await websocket.recv()
-            status = status_all["actuator_name"]
-            status_update = '0' + ',' + status
-            await websocket.send(status_update)
-            await asyncio.sleep(1)
+            state = await websocket.recv()
+            state = state[name]
+            print(state)
 
-            
-
-asyncio.get_event_loop().run_until_complete(actuator_init())
-asyncio.get_event_loop().run_forever()
+asyncio.get_event_loop().run_until_complete(actuator())
