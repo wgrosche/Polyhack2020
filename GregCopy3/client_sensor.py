@@ -18,8 +18,7 @@ async def sensor():
             # this could for example be done by connecting to another server
             # that simulates movement in the city
             await websocket.send(data)
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.3)
 
 
 asyncio.get_event_loop().run_until_complete(sensor())
-asyncio.get_event_loop().run_forever()
