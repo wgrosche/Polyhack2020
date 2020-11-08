@@ -1,5 +1,5 @@
 # Polyhack2020
-Relevant Files are in the folder Final_Submission
+Relevant Files are in the folder Submission_files
 
 Repository for the team Cache Money in the 2020 Polyhack
 
