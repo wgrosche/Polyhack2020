@@ -25,7 +25,7 @@ def initialize_grid():
     for i in range(num_agents):
         positions[i] = np.array([rand.randint(0,dim-1),rand.randint(0,dim-1)])
     update_grid()
-    plot()
+    #plot()
 
 def plot():
     plt.figure()
@@ -64,8 +64,8 @@ light1 = light(np.array([rand.randint(0,dim-1),rand.randint(0,dim-1)]))
 prox_sensor1 = light1.location
 
 # measure distance of person to sensor
-def prox_sensor(sensor_name, position):
-    return np.linalg.norm(sensor_name-position)
+def prox_sensor(sensor, position):
+    return np.linalg.norm(np.array(sensor.location)-position)
 
 
 # random walk step
@@ -89,6 +89,10 @@ def walk(position):
         x,y = walk(position)
     return np.array([x,y])
 
+def gen_location():
+    # Generate a random location for the sensor on the map
+    return np.array([rand.randint(0,dim-1),rand.randint(0,dim-1)])
+
 ###############################################################################################
 ###############################################################################################
 
@@ -96,19 +100,27 @@ initialize_grid()
 
 async def city_sim(websocket, path):
     while True:
+        for i in range(20):
+            try:
+                data = await websocket.recv()
+                data = data.split(',')
+                data[0] = gen_location()
+                server.ServerAddDevices(data)
 
-        data = await websocket.recv()
-        data = data.split(',')
-        data[0] = gen_location()
-        server.ServerAddDevices(data)
+            except websockets.ConnectionClosed:
+                for i in range(num_agents):
+                    positions[i] = walk(positions[i])
+                update_grid()
+                #await websocket.send(plot())
+                time.sleep(0.2)
+        for sensor in server.devices:
+            stat = ','.join([str(num) for num in prox_sensor(sensor , positions)])
+            server.status[sensor] = stat
+        await websocket.send(server.status)
 
-        for i in range(num_agents):
-            positions[i] = walk(positions[i])
-        update_grid()
-        #await websocket.send(plot())
-        time.sleep(rand.random()*2)
 
-start_server = websockets.serve(city_sim, "localhost", 8766)
+
+start_server = websockets.serve(city_sim, "127.0.0.1", 8766)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()

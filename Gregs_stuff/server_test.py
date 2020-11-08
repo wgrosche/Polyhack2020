@@ -22,7 +22,8 @@ async def rule_engine(websocket, path):
 
                 if data[0]=='0':
                     # now i want to update the sensor:
-                    server.devices[data[1]].value = float(data[2])
+                    #server.devices[data[1]].value = float(data[2])
+                    server.devices[data[1]].get_value(data[2:])
                 elif data[0]=='1':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
                     #class_ = getattr(rules , data[2])
@@ -56,7 +57,10 @@ async def rule_engine(websocket, path):
         #logic phase
         importlib.reload(config)
         config.updates(server)
-        await websocket.send(server.status)
+        try:
+            await websocket.send(server.status)
+        except:
+            pass
         await asyncio.sleep(2)
 
 

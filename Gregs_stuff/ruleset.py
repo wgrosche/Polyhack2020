@@ -26,6 +26,12 @@ class MotionSensor(Sensor):
     def __init__(self):
         super().__init__()
         self.value = False
+    def get_value(self, data):
+        data  = [float(y) for y in data]
+        if min(data)<5:
+            self.value = True
+        else:
+            self.value = False
 
 class SmartNoiseDetector(Sensor):
     def __init__(self):

@@ -14,15 +14,20 @@ async def sensor():
         value = input('Measurement: ')
         mes = '1' + ',' + name + ',' + type
         await websocket.send(mes)
+        
+    while True:
+        async with websockets.connect(uri_city) as websocket:
+            mes = '1,' + name + ',' + type
+            await websocket.send(mes)
+            try:
+                measurement = await websocket.recv()
+                measurement = measurement[name]
+                print(measurement)
+            except websockets.ConnectionClosed:
+                pass
 
-    #measurements
-    async with websockets.connect(uri_city) as websocket:
-        mes = name + ',' type
-        await websocket.send(mes)
-
-    # communication
-    async with websockets.connect(uri) as websocket:
-        while True:
+        # communication
+        async with websockets.connect(uri) as websocket:
             # (stating that this is sensor data, name , value)
             data = '0,' + name + ',' + value
             #maybe i could do a measurement here
@@ -30,6 +35,7 @@ async def sensor():
             # that simulates movement in the city
             await websocket.send(data)
             await asyncio.sleep(0.3)
+
 
 
 asyncio.get_event_loop().run_until_complete(sensor())

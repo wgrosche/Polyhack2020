@@ -20,7 +20,7 @@ def updates(server):
     #Sensor2.update()
     #Light1.update((Sensor1.value or Sensor2.value))
 
-    haha = 2
+
     # turn on Light1 if Sensor1 or Sensor2 is active
     #print(server.devices)
     try:
@@ -46,7 +46,7 @@ def updates(server):
         print(server.devices["Light3"].value)
     except KeyError:
         pass
-    
+
     try:
         if ((server.devices["Prox1"].value < 1) and server.devices["Sensor1"].value):
             server.devices["LightCont"].value = server.devices["Prox1"].value
