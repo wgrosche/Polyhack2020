@@ -23,3 +23,5 @@ The files actuator_client.py and sensor_client.py simulate client-side behavior.
 sensor_client.py sends random values to the server in accordance with the sensor
 type, and actuator_client.py acts on the messages from the server, changing its
 state as the server commands.
+
+The files city_server.py and city_server.html were part of an effort to simulate a toy city with agents triggering different kind of sensors and therefore corresponding events. It did not quite work in time, but with a little more time this visualization could still be implemented.
