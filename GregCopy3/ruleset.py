@@ -15,8 +15,7 @@ Created on Sat Nov  7 13:39:51 2020
 #         else:
 #             self.lightswitch = False
 
-class Devices():
-    def
+
 class Sensor():
     def __init__(self , name = 'Sensor'):
         self.name=name
@@ -66,7 +65,9 @@ class Server():
 
     def ServerAddDevices(self, device_props):
         #device_props = string.split(",")#ws.recv().split(" ")
+        print(self.devices)
         self.devices[device_props[1]] = DeviceDict[device_props[2]]()
+        print(self.devices)
         # if(device_props[2] == "False")
 
 
