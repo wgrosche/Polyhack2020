@@ -24,3 +24,5 @@ The files client_actuator and client_sensor simulate client-side behavior.
 Client_sensor sends random values to the server in accordance with the sensor
 type, and client_actuator acts on the messages from the server, changing its
 state as the server commands.
+
+A video demonstration of the server operation is included in the form of the file: demo.mp4
