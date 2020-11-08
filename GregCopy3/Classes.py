@@ -10,7 +10,6 @@ class Sensor():
         self.name=name
         pass
 
-
 class MotionSensor(Sensor):
     def __init__(self):
         super().__init__()
@@ -32,7 +31,6 @@ class Actuator():
     def update(self, inputs):
         self.value = inputs
 
-
 class Light(Actuator):
     def __init__(self):
         super().__init__()
@@ -47,26 +45,19 @@ DeviceDict = {"MotionSensor": MotionSensor, "ProximitySensor": ProximitySensor,
               "SmartNoiseDetector": SmartNoiseDetector, "Light": Light, "DoorLock": DoorLock}
 
 class Server():
+
     def __init__(self):
         super().__init__()
         self.devices = {}
         self.status = {}
 
-
+    # adds devices to the server one by one
     def ServerAddDevices(self, device_props):
-        #device_props = string.split(",")#ws.recv().split(" ")
         print(self.devices)
         self.devices[device_props[1]] = DeviceDict[device_props[2]]()
         print(self.devices)
-        # if(device_props[2] == "False")
 
-
-        # device_props2 = "Sensor2 ProximitySensor".split(" ")
-        # self.devices.append(ws.recv()) #add devices based on d 'Sensor1', 'MotionSensor', 'False'  Sensor1 = MotionSensor()
-        # self.devices
-        #for device in self.devices:
-            #device.DeviceName = device.DeviceType
-
+    # updates the curr values of the devices on the server side
     def ServerUpdate(self):
         for device in self.devices.index:
             device.update()
