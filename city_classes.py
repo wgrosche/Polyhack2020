@@ -6,7 +6,7 @@ class Sensor():
 
 
 class MotionSensor(Sensor):
-    def __init__(self):
+    def __init__(self ,location = [0,0]):
         super().__init__()
         self.value = False
 
@@ -50,7 +50,7 @@ class Server():
     def ServerAddDevices(self, device_props):
         #device_props = string.split(",")#ws.recv().split(" ")
         print(self.devices)
-        self.devices[device_props[1]] = DeviceDict[device_props[2]](location = data[0])
+        self.devices[device_props[1]] = DeviceDict[device_props[2]](location = device_props[0])
         print(self.devices)
         # if(device_props[2] == "False")
 

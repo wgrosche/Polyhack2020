@@ -23,10 +23,10 @@ async def rule_engine(websocket, path):
                 data = await websocket.recv()
                 data = data.split(',') # First entry: Sensor name, Second Entry: Value
 
-                if data[0]=='0':
+                if data[0] == '0':
                     # now i want to update the sensor:
                     server.devices[data[1]].value = float(data[2])
-                elif data[0]=='1':
+                elif data[0] == '1':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
                     #class_ = getattr(rules , data[2])
                     #exec("%s = %d" % (data[1],class_()))
@@ -37,7 +37,7 @@ async def rule_engine(websocket, path):
                     importlib.reload(config)
                     sensors.append(data[1])
                     print(sensors)
-                elif data[0]=='2':
+                elif data[0] == '2':
                     #eval(data[1]) = config.eval(data[2])(name = data[1])
                     #class_ = getattr(rules , data[2])
                     #exec("%s = %d" % (data[1],class_()))
