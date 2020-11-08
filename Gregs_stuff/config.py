@@ -46,3 +46,11 @@ def updates(server):
         print(server.devices["Light3"].value)
     except KeyError:
         pass
+    
+    try:
+        if ((server.devices["Prox1"].value < 1) and server.devices["Sensor1"].value):
+            server.devices["LightCont"].value = server.devices["Prox1"].value
+            server.status["LightCont"] = server.devices["Light"].value
+        print(server.devices["LightCont"].value)
+    except KeyError:
+        pass
