@@ -22,8 +22,6 @@ async def actuator():
             except KeyError:
                 pass
             print(state)
-            await asyncio.sleep(0.3)
-
 
 
 asyncio.get_event_loop().run_until_complete(actuator())
