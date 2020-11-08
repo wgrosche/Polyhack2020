@@ -5,6 +5,17 @@ Created on Sat Nov  7 13:39:51 2020
 @author: wilke
 """
 
+# class RuleSet():
+#     def _init_(self):
+#         self.sensor = False
+#         self.lightswitch = False
+#     def update(self):
+#         if self.sensor:
+#             self.lightswitch = True
+#         else:
+#             self.lightswitch = False
+
+
 class Sensor():
     def __init__(self , name = 'Sensor'):
         self.name=name
