@@ -26,6 +26,23 @@ def updates(server):
     try:
         if server.devices["Sensor1"].value or server.devices["Sensor2"].value:
             server.devices["Light1"].value = True
+            server.status["Light1"] = True
         print(server.devices["Light1"].value)
+    except KeyError:
+        pass
+
+    try:
+        if server.devices["Sensor1"].value and server.devices["Sensor2"].value:
+            server.devices["Light2"].value = True
+            server.status["Light2"] = True
+        print(server.devices["Light2"].value)
+    except KeyError:
+        pass
+
+    try:
+        if server.devices["Sensor1"].value and server.devices["Sensor2"].value:
+            server.devices["Light3"].value = True
+            server.status["Light3"] = True
+        print(server.devices["Light3"].value)
     except KeyError:
         pass

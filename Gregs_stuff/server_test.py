@@ -7,6 +7,7 @@ import importlib
 global server
 server = rules.Server()
 
+
 async def rule_engine(websocket, path):
 
     #config.init_sensors()
@@ -39,6 +40,7 @@ async def rule_engine(websocket, path):
                     #exec("%s = %d" % (data[1],class_()))
                     #exec("%s = %d" % (data[1],rules.eval(data[2])(name = data[1])))
 
+                    server.status[data[1]] = False
                     server.ServerAddDevices(data)
 
                     importlib.reload(config)
@@ -54,6 +56,7 @@ async def rule_engine(websocket, path):
         #logic phase
         importlib.reload(config)
         config.updates(server)
+        await websocket.send(server.status)
         await asyncio.sleep(2)
 
 

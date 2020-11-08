@@ -11,5 +11,9 @@ async def actuator():
         mes = '2' + ',' + name + ',' + type
         await websocket.send(mes)
 
+        while True:
+            state = await websocket.recv()
+            state = state[name]
+            print(state)
 
 asyncio.get_event_loop().run_until_complete(actuator())
