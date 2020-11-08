@@ -11,15 +11,15 @@ The config file config.py is the set of rules that the server's rule engine
 runs on. These rules are arbitrary and can be updated while the server is
 running. It is according to these rules that the server evaluates the data
 it receives from sensors and determines the appropriate actions to be taken
-w.r.t. to the actuator statuses.
+with respect to to the actuator statuses.
 
-The file server_test initializes the server object, which runs the centralized
+The file server.py initializes the server object, which runs the centralized
 process. It keeps the server status (i.e. the current values of the device
 attributes), receives data from sensors and determines the changes to be made to
 the actuator values, then pushes these updated values to the actuators via a
 websocket connection.
 
-The files client_actuator and client_sensor simulate client-side behavior.
-Client_sensor sends random values to the server in accordance with the sensor
-type, and client_actuator acts on the messages from the server, changing its
+The files actuator_client.py and sensor_client.py simulate client-side behavior.
+sensor_client.py sends random values to the server in accordance with the sensor
+type, and actuator_client.py acts on the messages from the server, changing its
 state as the server commands.
