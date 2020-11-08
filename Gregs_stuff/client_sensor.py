@@ -17,7 +17,7 @@ async def sensor():
 
     #measurements
     async with websockets.connect(uri_city) as websocket:
-        mes = name + ',' type
+        mes = name + ',' + type
         await websocket.send(mes)
 
     # communication

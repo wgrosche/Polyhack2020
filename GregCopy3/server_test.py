@@ -3,9 +3,12 @@ import websockets
 import ruleset as rules
 import config
 import importlib
-
+import json
 global server
 server = rules.Server()
+
+
+
 
 
 async def rule_engine(websocket, path):
@@ -13,7 +16,7 @@ async def rule_engine(websocket, path):
     #config.init_sensors()
     sensors = []
     actuators = []
-
+    
     while True:
         for i in range(20):
             try:
@@ -56,7 +59,12 @@ async def rule_engine(websocket, path):
         #logic phase
         importlib.reload(config)
         config.updates(server)
-        await websocket.send(server.status)
+        # websocket.connections.itervalues():
+            
+        # for actuator in actuators:
+        #     await websocket.send(server.status[actuator])
+        status_string = json.dumps(server.status) #data serialized
+        await websocket.send(status_string)
         await asyncio.sleep(2)
 
 

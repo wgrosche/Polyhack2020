@@ -57,7 +57,7 @@ class light():
     def __init__(self,coordinates):
         self.location = coordinates
         self.light = False
-    def update(bool):
+    def update(self, bool):
         self.light = bool
 
 light1 = light(np.array([rand.randint(0,dim-1),rand.randint(0,dim-1)]))
@@ -96,8 +96,8 @@ initialize_grid()
 
 async def city_sim(websocket, path):
     while True:
-
-        data = await websocket.recv()
+        async for message in websocket:
+            data = message
         data = data.split(',')
         data[0] = gen_location()
         server.ServerAddDevices(data)

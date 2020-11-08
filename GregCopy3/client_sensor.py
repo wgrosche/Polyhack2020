@@ -9,13 +9,17 @@ async def sensor():
         name = input('Input Sensor name: ')
         type = input('Sensor type: ')
         value = input('Measurement: ')
+        value = float(value)
         mes = '1' + ',' + name + ',' + type
         await websocket.send(mes)
         while True:
+            print(value)
             # (stating that this is sensor data, name , value)
-            data = '0,' + name + ',' + value
-            if value == bool:
-                bool(random.getrandbits(1))
+            data = '0,' + name + ',' + str(value)
+            if type == "ProximitySensor":
+                value = random.random()
+            else:
+                value = bool(random.getrandbits(1))
             #maybe i could do a measurement here
             # this could for example be done by connecting to another server
             # that simulates movement in the city

@@ -1,6 +1,6 @@
 import asyncio
 import websockets
-
+import json
 
 
 async def actuator():
@@ -12,7 +12,10 @@ async def actuator():
         await websocket.send(mes)
 
         while True:
-            state = await websocket.recv()
+            while websocket:
+                print("Test")
+                async for message in websocket:
+                    state = json.loads(message)
             state = state[name]
             print(state)
 
